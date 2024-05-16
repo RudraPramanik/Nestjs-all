@@ -7,19 +7,22 @@ import {
   Delete,
   Patch,
   Param,
+  Query,
+  Headers,
+  
 } from '@nestjs/common';
 import { Request } from 'express';
 
-interface videoParams {
-  id: number;
+interface queryParams {
+  age: number;
   name: string;
 }
 
 @Controller('/albums')
 export class AlbumsController {
-  @Get('/videos/:id/:name')
-  getVideos(@Param() params: videoParams) {
-    console.log(params);
+  @Get('/videos')
+  getVideos(@Headers() headers: Record<string, any>) {
+    console.log(headers);
     return 'success';
   }
 }
