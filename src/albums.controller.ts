@@ -1,18 +1,25 @@
-import { Controller, Get, Req, Post, Put, Delete, Patch } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Req,
+  Post,
+  Put,
+  Delete,
+  Patch,
+  Param,
+} from '@nestjs/common';
 import { Request } from 'express';
+
+interface videoParams {
+  id: number;
+  name: string;
+}
 
 @Controller('/albums')
 export class AlbumsController {
-  @Post('/profile')
-  getProfile(@Req() req: Request) {
-    return 'hello rudra';
-  }
-  @Get('/rudra')
-  getRudra() {
-    return 'hi rudra';
-  }
-  @Put('/pramanik')
-  getPramanik(){
-    return 'hi pramanik'
+  @Get('/videos/:id/:name')
+  getVideos(@Param() params: videoParams) {
+    console.log(params);
+    return 'success';
   }
 }
