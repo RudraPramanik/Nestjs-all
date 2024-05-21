@@ -1,69 +1,80 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Put,
-  NotFoundException,
-  HttpCode,
-} from '@nestjs/common';
-import { createUserDTO } from './dto';
+import { Controller, Get, Ip } from '@nestjs/common';
 
-let users = [];
-
-@Controller('/users')
-export class UsersController {
-  @Post()
-  @HttpCode(201)
-  addUsers(@Body() createUser: createUserDTO) {
-    users.push(createUser);
-    console.log(users);
-    return { message: 'User added successfully', user: createUser };
-  }
-
+ @Controller('/users')
+ export class UsersController {
   @Get()
-  getUsers() {
-    console.log('Get users endpoint hit');
-    return users;
-  }
-
-  @Get(':id')
-  getUser(@Param('id') id: number) {
-    const user = users.find((user) => user.id === +id);
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
-    return user;
-  }
-
-  @Put(':id')
-  updateUser(@Param('id') id: number, @Body() userUpdateDTO: createUserDTO) {
-    const userIdx = users.findIndex((user) => +user.id === +id);
-
-    if (userIdx === -1) {
-      throw new NotFoundException('User not found');
-    }
-
-    users[userIdx] = userUpdateDTO;
-    console.log(users);
-    return { message: 'User updated successfully', user: userUpdateDTO };
-  }
-
-  @Delete(':id')
-  deleteUser(@Param('id') id: number) {
-    const initialLength = users.length;
-    users = users.filter((user) => +user.id !== +id);
-
-    if (users.length === initialLength) {
-      throw new NotFoundException('User not found');
-    }
-
-    console.log(users);
-    return { message: 'User deleted successfully' };
+  getUser(@Ip() ip: string) {
+    console.log(ip);
+    return 'hello world';
   }
 }
+
+//8 crud import {
+//   Body,
+//   Controller,
+//   Delete,
+//   Get,
+//   Param,
+//   Post,
+//   Put,
+//   NotFoundException,
+//   HttpCode,
+// } from '@nestjs/common';
+// import { createUserDTO } from './dto';
+
+// let users = [];
+
+// @Controller('/users')
+// export class UsersController {
+//   @Post()
+//   @HttpCode(201)
+//   addUsers(@Body() createUser: createUserDTO) {
+//     users.push(createUser);
+//     console.log(users);
+//     return { message: 'User added successfully', user: createUser };
+//   }
+
+//   @Get()
+//   getUsers() {
+//     console.log('Get users endpoint hit');
+//     return users;
+//   }
+
+//   @Get(':id')
+//   getUser(@Param('id') id: number) {
+//     const user = users.find((user) => user.id === +id);
+//     if (!user) {
+//       throw new NotFoundException('User not found');
+//     }
+//     return user;
+//   }
+
+//   @Put(':id')
+//   updateUser(@Param('id') id: number, @Body() userUpdateDTO: createUserDTO) {
+//     const userIdx = users.findIndex((user) => +user.id === +id);
+
+//     if (userIdx === -1) {
+//       throw new NotFoundException('User not found');
+//     }
+
+//     users[userIdx] = userUpdateDTO;
+//     console.log(users);
+//     return { message: 'User updated successfully', user: userUpdateDTO };
+//   }
+
+//   @Delete(':id')
+//   deleteUser(@Param('id') id: number) {
+//     const initialLength = users.length;
+//     users = users.filter((user) => +user.id !== +id);
+
+//     if (users.length === initialLength) {
+//       throw new NotFoundException('User not found');
+//     }
+
+//     console.log(users);
+//     return { message: 'User deleted successfully' };
+//   }
+// }
 
 // import {
 //   Body,
