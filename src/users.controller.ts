@@ -6,48 +6,115 @@ import {
   Param,
   Post,
   Put,
+  NotFoundException,
+  HttpCode,
 } from '@nestjs/common';
 import { createUserDTO } from './dto';
 
-let user = [];
+let users = [];
 
 @Controller('/users')
 export class UsersController {
   @Post()
+  @HttpCode(201)
   addUsers(@Body() createUser: createUserDTO) {
-    user.push(createUser);
-    console.log(user);
-    return 'useradded';
+    users.push(createUser);
+    console.log(users);
+    return { message: 'User added successfully', user: createUser };
   }
+
   @Get()
   getUsers() {
-    console.log('get user hitted');
-    return user;
+    console.log('Get users endpoint hit');
+    return users;
   }
 
   @Get(':id')
   getUser(@Param('id') id: number) {
-    return user.find((user) => user.id === +id);
+    const user = users.find((user) => user.id === +id);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    return user;
   }
 
   @Put(':id')
   updateUser(@Param('id') id: number, @Body() userUpdateDTO: createUserDTO) {
-    const userIdx = user.findIndex((user) => +user.id === +id);
+    const userIdx = users.findIndex((user) => +user.id === +id);
 
-    if (!userIdx) {
-      return;
+    if (userIdx === -1) {
+      throw new NotFoundException('User not found');
     }
-    user[userIdx] = userUpdateDTO;
-    console.log(user)
-    return 'updated';
+
+    users[userIdx] = userUpdateDTO;
+    console.log(users);
+    return { message: 'User updated successfully', user: userUpdateDTO };
   }
+
   @Delete(':id')
   deleteUser(@Param('id') id: number) {
-    user = user.filter((user) => +user.id !== +id);
-    console.log(user)
-    return ' user deleted';
+    const initialLength = users.length;
+    users = users.filter((user) => +user.id !== +id);
+
+    if (users.length === initialLength) {
+      throw new NotFoundException('User not found');
+    }
+
+    console.log(users);
+    return { message: 'User deleted successfully' };
   }
 }
+
+// import {
+//   Body,
+//   Controller,
+//   Delete,
+//   Get,
+//   Param,
+//   Post,
+//   Put,
+// } from '@nestjs/common';
+// import { createUserDTO } from './dto';
+
+// let user = [];
+
+// @Controller('/users')
+// export class UsersController {
+//   @Post()
+//   addUsers(@Body() createUser: createUserDTO) {
+//     user.push(createUser);
+//     console.log(user);
+//     return 'useradded';
+//   }
+//   @Get()
+//   getUsers() {
+//     console.log('get user hitted');
+//     return user;
+//   }
+
+//   @Get(':id')
+//   getUser(@Param('id') id: number) {
+//     return user.find((user) => user.id === +id);
+//   }
+
+//   @Put(':id')
+//   updateUser(@Param('id') id: number, @Body() userUpdateDTO: createUserDTO) {
+//     const userIdx = user.findIndex((user) => +user.id === +id);
+
+//     if (!userIdx) {
+//       return;
+//     }
+//     user[userIdx] = userUpdateDTO;
+//     console.log(user)
+//     return 'updated';
+//   }
+//   @Delete(':id')
+//   deleteUser(@Param('id') id: number) {
+//     user = user.filter((user) => +user.id !== +id);
+//     console.log(user)
+//     return ' user deleted';
+//   }
+// }
 
 //body7 import {
 //   Controller,
