@@ -1,16 +1,13 @@
 import { Module } from "@nestjs/common";
-import { CacheStoreModule, StoreType } from "src/cache-store";
-import { JobsService } from "./jobs.service";
+import { JobsApplicationsController } from "./controllers/jobs-applications.controller";
+import { JobsInterviewsController } from "./controllers/jobs-interviews.controller";
+import { JobsController } from "./controllers/jobs.controller";
 
 @Module({
-  imports: [
-    // create a dynamic module with below option
-    CacheStoreModule.register({
-      storeName: "jobs",
-      storeType: StoreType.FILE,
-      storeDir: __dirname, // dist folder
-    }),
+  controllers: [
+    JobsController,
+    JobsApplicationsController,
+    JobsInterviewsController,
   ],
-  providers: [JobsService],
 })
 export class JobsModule {}

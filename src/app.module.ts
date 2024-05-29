@@ -1,21 +1,14 @@
 import { Module } from "@nestjs/common";
-import { CacheStoreModule, StoreType } from "./cache-store";
-import { UsersModule } from "./users/users.module";
+
 import { JobsModule } from "./jobs/jobs.module";
-import { AppService } from "./app.service";
+import { AdminModule } from "./admin/admin.module";
+import { AppRoutingModule } from "./app-routing.module";
+import { RouterModule } from "@nestjs/core";
+import { AdminOfficesModule } from "./admin/offices/admin-offices.module";
+import { AdminUsersModule } from "./admin/users/admin-users.module";
+
 
 @Module({
-  imports: [
-    UsersModule,
-    JobsModule,
-
-    // create a dynamic module with below options
-    CacheStoreModule.register({
-      storeName: "YT-APP",
-      storeType: StoreType.FILE,
-      storeDir: __dirname, // dist folder
-    }),
-  ],
-  providers: [AppService],
+  imports: [JobsModule, AdminModule, AppRoutingModule ],
 })
 export class AppModule {}
