@@ -1,12 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable } from "@nestjs/common";
+import { User } from "../interfaces";
 
-export interface User {
-  name: string;
-  age: number;
-  id: number;
-}
 @Injectable()
-export class UserService {
+export class UsersService {
   private store = new Map<number, User>();
 
   addUser(user: User) {
@@ -24,6 +20,7 @@ export class UserService {
   updateUser(id: number, user: User) {
     this.store.set(id, user);
   }
+
   deleteUser(id: number) {
     this.store.delete(id);
   }
