@@ -1,8 +1,8 @@
-import { JobsModule } from "./jobs.module";
+import { JobsModule } from './jobs.module';
 
 export const JOBS_ROUTES = [
   {
-    path: "jobs",
+    path: 'jobs',
     module: JobsModule,
   },
 ];
