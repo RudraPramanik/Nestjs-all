@@ -1,4 +1,4 @@
-import { JobType } from '../constants/jobs.constants';
+import { JobType } from "../constants/jobs.constants";
 
 export class Job {
   companyName: string;
