@@ -1,13 +1,12 @@
 import { JobType } from "../constants/jobs.constants";
 
-export class Job {
+export class CreateJobDTO {
   companyName: string;
   title: string;
   email: string;
-  type: JobType = JobType.FULL_TIME;
+  type?: JobType;
   experience: number;
   salary: number;
-  tags: string[] = [];
-  isActive: boolean = true;
-  id: number;
+  tags?: string[];
+  isActive?: boolean;
 }
