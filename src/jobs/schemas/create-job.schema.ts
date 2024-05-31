@@ -1,5 +1,5 @@
-import * as Joi from "joi";
-import { JobType } from "../constants/jobs.constants";
+import * as Joi from 'joi';
+import { JobType } from '../constants/jobs.constants';
 
 export const createJobSchema = Joi.object({
   companyName: Joi.string().required(),

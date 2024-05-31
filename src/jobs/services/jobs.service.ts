@@ -1,6 +1,6 @@
-import { Injectable } from "@nestjs/common";
-import { CreateJobDTO } from "../dto/create-job.dto";
-import { Job } from "../interfaces/job";
+import { Injectable } from '@nestjs/common';
+import { CreateJobDTO } from '../dto/create-job.dto';
+import { Job } from '../interfaces/job';
 
 const JOBS = new Map<number, Job>();
 let jobId = 1;
